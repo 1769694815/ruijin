@@ -1,30 +1,9 @@
 <template>
   <div id="wrapper">
-    <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
+    <img id="logo" src="~@/assets/logo.jpg" alt="electron-vue">
+    <h2 class="title">瑞金医院伽马刀科室</h2>
     <main>
-      <div class="left-side">
-        <span class="title">
-          Welcome to your new project!
-        </span>
-        <system-information></system-information>
-      </div>
-
-      <div class="right-side">
-        <div class="doc">
-          <div class="title">Getting Started</div>
-          <p>
-            electron-vue comes packed with detailed documentation that covers everything from
-            internal configurations, using the project structure, building your application,
-            and so much more.
-          </p>
-          <button @click="open('https://simulatedgreg.gitbooks.io/electron-vue/content/')">Read the Docs</button><br><br>
-        </div>
-        <div class="doc">
-          <div class="title alt">Other Documentation</div>
-          <button class="alt" @click="goHome">Electron</button>
-          <button class="alt" @click="open('https://vuejs.org/v2/guide/')">Vue.js</button>
-        </div>
-      </div>
+      <el-button type="primary" round @click="toHome">查看数据</el-button>
     </main>
   </div>
 </template>
@@ -39,7 +18,7 @@
       open (link) {
         this.$electron.shell.openExternal(link)
       },
-      goHome () {
+      toHome () {
         this.$router.push('/home')
       }
     }
@@ -58,74 +37,30 @@
   body { font-family: 'Source Sans Pro', sans-serif; }
 
   #wrapper {
-    background:
-      radial-gradient(
-        ellipse at top left,
-        rgba(255, 255, 255, 1) 40%,
-        rgba(229, 229, 229, .9) 100%
-      );
     height: 100vh;
     padding: 60px 80px;
     width: 100vw;
+    background: url('~@/assets/bg.jpg');
+    background-size: contain;
   }
 
   #logo {
     height: auto;
-    margin-bottom: 20px;
-    width: 420px;
+    display: block;
+    margin: 0 auto 20px;
+    width: 80px;
   }
-
-  main {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  main > div { flex-basis: 50%; }
-
-  .left-side {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .welcome {
-    color: #555;
-    font-size: 23px;
-    margin-bottom: 10px;
-  }
-
-  .title {
-    color: #2c3e50;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 6px;
-  }
-
-  .title.alt {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  .doc p {
-    color: black;
-    margin-bottom: 10px;
-  }
-
-  .doc button {
-    font-size: .8em;
-    cursor: pointer;
-    outline: none;
-    padding: 0.75em 2em;
-    border-radius: 2em;
-    display: inline-block;
+  h2.title {
+    font-size: 32px;
+    text-align: center;
     color: #fff;
-    background-color: #4fc08d;
-    transition: all 0.15s ease;
-    box-sizing: border-box;
-    border: 1px solid #4fc08d;
   }
 
-  .doc button.alt {
-    color: #42b983;
-    background-color: transparent;
+  #wrapper main {
+    height: calc(100vh - 280px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+
 </style>
