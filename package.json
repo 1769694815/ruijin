@@ -58,6 +58,7 @@
   "dependencies": {
     "vue": "^2.5.16",
     "axios": "^0.18.0",
+    "element-ui": "2.13.1",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
@@ -82,7 +83,7 @@
     "electron": "^2.0.4",
     "electron-debug": "^1.5.0",
     "electron-devtools-installer": "^2.2.4",
-    "electron-builder": "^20.19.2",
+    "electron-builder": "^19.19.1",
     "babel-eslint": "^8.2.3",
     "eslint": "^4.19.1",
     "eslint-friendly-formatter": "^4.0.1",
