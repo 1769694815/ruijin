@@ -1,0 +1,82 @@
+.el-table th {
+  word-break: break-word;
+  color: rgba($color: #000000, $alpha: .85);
+  background-color: #fafafa;
+}
+
+.x__menu {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  min-height: 40px;
+  height: auto;
+  overflow: hidden;
+  margin-bottom: 5px;
+  &__left .el-button+.el-button {
+    margin-left: 0;
+  }
+  &__right .el-button+.el-button {
+    margin-left: 0;
+  }
+}
+
+.x__menu .el-button {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.el-form-item.is-success .el-input__validateIcon {
+  color: #C0C4CC;
+}
+
+.el-form-item.is-success .el-input__inner:focus, .el-form-item.is-success .el-textarea__inner:focus {
+  border-color: #409EFF;
+}
+
+.el-form-item.is-success .el-input__inner, .el-form-item.is-success .el-textarea__inner {
+  border-color:#C0C4CC;
+}
+
+.el-tree-node.is-current>.el-tree-node__content {
+  color: #409eff;
+  background-color: #F5F7FA;
+}
+
+.el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
+  background-color: #f0f7ff;
+}
+
+.course-upload__tip {
+  position: absolute;
+  bottom: 10px;
+  font-size: 12px;
+  color: #ff0000;
+}
+
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}

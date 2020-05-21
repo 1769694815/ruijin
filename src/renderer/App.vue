@@ -1,15 +1,66 @@
 <template>
   <div id="app">
+    <div class="title-bar">
+      <div class="right">
+        <img @click="minimize" src="~@/assets/icon_minimize_gery.png">
+        <img v-if="!isMaximize" @click="maximize" src="~@/assets/icon_maximize.png">
+        <img v-else @click="unmaximize" src="~@/assets/icon_unmaximize.png">
+        <img @click="close" src="~@/assets/icon_close_gery.png">
+      </div>
+    </div>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+  const { ipcRenderer } = require('electron')
   export default {
-    name: 'ruijin'
+    name: 'App',
+    data () {
+      return {
+        isMaximize: false
+      }
+    },
+    mounted () {},
+    methods: {
+      maximize () {
+        ipcRenderer.send('maximize')
+        this.isMaximize = true
+      },
+      unmaximize () {
+        ipcRenderer.send('unmaximize')
+        this.isMaximize = false
+      },
+      minimize () {
+        ipcRenderer.send('minimize')
+      },
+      close () {
+        ipcRenderer.send('close')
+      }
+    } 
   }
 </script>
 
-<style>
-  /* CSS */
+<style lang="scss" scoped>
+  #app {
+    .title-bar {
+      width: 100%;
+      height: 50px;
+      z-index: 99;
+      -webkit-app-region: drag; // 可拖动
+      position: absolute;
+      .right {
+        position: absolute;
+        right: 0;
+        top: 0;
+        -webkit-app-region: no-drag; // 可拖动
+        img {
+          width: 16px;
+          height: 16px;
+          margin: 15px 15px 0 0;
+          cursor: pointer;
+        }
+      }
+    }
+  }
 </style>

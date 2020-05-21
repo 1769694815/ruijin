@@ -1,6 +1,7 @@
 'use strict'
 
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain, Tray, Menu } from 'electron'
+import '../renderer/store'
 
 /**
  * Set `__static` path to static files in production
@@ -15,14 +16,19 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
+let tray
+
 function createWindow () {
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
     height: 563,
-    useContentSize: true,
-    width: 1000
+    width: 1000,
+    frame: false,
+    webPreferences: {
+      nodeIntegration: true
+    }
   })
 
   mainWindow.loadURL(winURL)
@@ -45,6 +51,26 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+ipcMain.on('changWindowSize', e => 
+  mainWindow.setSize(1050, 700)
+)
+
+ipcMain.on('close', e => 
+  mainWindow.quit()
+)
+
+ipcMain.on('minimize', e =>
+  mainWindow.minimize()
+)
+
+ipcMain.on('maximize', e =>
+  mainWindow.maximize()
+)
+
+ipcMain.on('unmaximize', e =>
+  mainWindow.unmaximize()
+)
 
 /**
  * Auto Updater
