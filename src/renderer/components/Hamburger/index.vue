@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 0 15px;" @click="toggleClick">
+  <div class="hamburger-box" @click="toggleClick">
     <svg
       :class="{'is-active':isActive}"
       class="hamburger"
@@ -31,6 +31,12 @@ export default {
 </script>
 
 <style scoped>
+.hamburger-box {
+  padding: 0 15px;
+  -webkit-app-region: no-drag;
+  position: absolute;
+  z-index: 99;
+}
 .hamburger {
   display: inline-block;
   vertical-align: middle;

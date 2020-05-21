@@ -54,7 +54,7 @@ export default {
       this.$store.dispatch('user/toggleSideBar')
     },
     async logout () {
-      
+
     }
   }
 }
@@ -83,6 +83,9 @@ export default {
 
   .breadcrumb-container {
     float: left;
+    position: absolute;
+    left: 35px;
+    z-index: 99;
   }
 
   .right-menu {

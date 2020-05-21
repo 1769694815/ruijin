@@ -11,6 +11,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 let webConfig = {
   devtool: '#cheap-module-eval-source-map',
   entry: {
@@ -29,6 +33,16 @@ let webConfig = {
       //     }
       //   }
       // },
+      {
+        test: /\.svg$/,
+        include: [resolve('/src/renderer/icons/svg')],
+        use: {
+          loader: 'svg-sprite-loader',
+          options: {
+            symbolId: 'icon-[name]'
+          }
+        }
+      },
       {
         test: /\.scss$/,
         use: ['vue-style-loader', 'css-loader', 'sass-loader']
@@ -77,7 +91,8 @@ let webConfig = {
             limit: 10000,
             name: 'imgs/[name].[ext]'
           }
-        }
+        },
+        exclude: [resolve('/src/renderer/icons/svg')]
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,

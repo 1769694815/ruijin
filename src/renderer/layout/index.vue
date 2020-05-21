@@ -27,7 +27,7 @@ export default {
     sidebar () {
       return this.$store.state.user.sidebar
     },
-    device() {
+    device () {
       return this.$store.state.user.device
     },
     fixedHeader () {
@@ -43,7 +43,7 @@ export default {
     }
   },
   methods: {
-    handleClickOutside() {
+    handleClickOutside () {
       this.$store.dispatch('user/closeSideBar', { withoutAnimation: false })
     }
   }

@@ -1,7 +1,7 @@
 'use strict'
 
-import { app, BrowserWindow, ipcMain, Tray, Menu } from 'electron'
-import '../renderer/store'
+import { app, BrowserWindow, ipcMain } from 'electron'
+// import '../renderer/store'
 
 /**
  * Set `__static` path to static files in production
@@ -16,7 +16,6 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
-let tray
 
 function createWindow () {
   /**
@@ -52,12 +51,12 @@ app.on('activate', () => {
   }
 })
 
-ipcMain.on('changWindowSize', e => 
+ipcMain.on('changWindowSize', e =>
   mainWindow.setSize(1050, 700)
 )
 
-ipcMain.on('close', e => 
-  mainWindow.quit()
+ipcMain.on('close', e =>
+  mainWindow.hide()
 )
 
 ipcMain.on('minimize', e =>

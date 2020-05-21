@@ -37,7 +37,7 @@
       close () {
         ipcRenderer.send('close')
       }
-    } 
+    }
   }
 </script>
 
@@ -46,19 +46,21 @@
     .title-bar {
       width: 100%;
       height: 50px;
-      z-index: 99;
+      z-index: 9;
       -webkit-app-region: drag; // 可拖动
       position: absolute;
       .right {
         position: absolute;
         right: 0;
         top: 0;
-        -webkit-app-region: no-drag; // 可拖动
+        user-select: none;
+        -webkit-app-region: no-drag; // 不可拖动
         img {
           width: 16px;
           height: 16px;
           margin: 15px 15px 0 0;
           cursor: pointer;
+          user-select: none;
         }
       }
     }

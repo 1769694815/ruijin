@@ -38,7 +38,7 @@
     padding: 60px 80px;
     width: 100vw;
     background: url('~@/assets/bg.jpg');
-    background-size: contain;
+    background-size: cover;
   }
 
   #logo {

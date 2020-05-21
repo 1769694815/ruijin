@@ -30,17 +30,17 @@ const mutations = {
 }
 
 const actions = {
-  toggleSideBar({ commit }) {
+  toggleSideBar ({ commit }) {
     commit('TOGGLE_SIDEBAR')
   },
-  closeSideBar({ commit }, { withoutAnimation }) {
+  closeSideBar ({ commit }, { withoutAnimation }) {
     console.log('121313', withoutAnimation)
     commit('CLOSE_SIDEBAR', withoutAnimation)
   },
-  toggleDevice({ commit }, device) {
+  toggleDevice ({ commit }, device) {
     commit('TOGGLE_DEVICE', device)
   },
-  setRoutes({ commit }, constantRoutes) {
+  setRoutes ({ commit }, constantRoutes) {
     commit('SET_ROUTES', { constantRoutes })
   }
 }

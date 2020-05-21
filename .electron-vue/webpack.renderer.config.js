@@ -22,6 +22,10 @@ const { VueLoaderPlugin } = require('vue-loader')
 // let whiteListedModules = ['vue']
 let whiteListedModules = ['vue', 'vue-router', 'axios', 'vuex', 'vue-electron']
 
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 let rendererConfig = {
   devtool: '#cheap-module-eval-source-map',
   entry: {
@@ -43,6 +47,16 @@ let rendererConfig = {
       //     }
       //   }
       // },
+      {
+        test: /\.svg$/,
+        include: [resolve('/src/renderer/icons/svg')],
+        use: {
+          loader: 'svg-sprite-loader',
+          options: {
+            symbolId: 'icon-[name]'
+          }
+        }
+      },
       {
         test: /\.scss$/,
         use: ['vue-style-loader', 'css-loader', 'sass-loader']
@@ -94,7 +108,8 @@ let rendererConfig = {
             limit: 10000,
             name: 'imgs/[name]--[folder].[ext]'
           }
-        }
+        },
+        exclude: [resolve('/src/renderer/icons/svg')]
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
