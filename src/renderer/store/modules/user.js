@@ -5,7 +5,8 @@ const state = {
   },
   device: 'desktop',
   userInfo: {},
-  routes: {}
+  routes: {},
+  sidebarLogo: true
 }
 
 const mutations = {

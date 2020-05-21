@@ -1,7 +1,7 @@
 
 <template>
   <div class="dashboard-container">
-    <p @click="sendNotification">首页</p>
+    <p @click="sendNotification">发送通知！</p>
   </div>
 </template>
 
@@ -51,17 +51,10 @@ export default {
 }
 </script>
 
-<style scoped>
-  .home {
-    width: 100vw;
-    height: 100vh;
-    box-sizing: border-box;
-    padding: 10px 30px;
-  }
-  .home .header {
-    width: 100%;
-    height: 40px;
-    display: flex;
-    align-items: center;
+<style lang="scss" scoped>
+  .dashboard {
+    &-container {
+      margin: 30px;
+    }
   }
 </style>

@@ -29,7 +29,8 @@ export default {
   computed: {
     ...mapGetters([
       'routes',
-      'sidebar'
+      'sidebar',
+      'sidebarLogo'
     ]),
     activeMenu () {
       const route = this.$route
@@ -41,7 +42,7 @@ export default {
       return path
     },
     showLogo () {
-      return false
+      return this.sidebarLogo
     },
     variables () {
       return variables
