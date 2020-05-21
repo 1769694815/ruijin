@@ -40,11 +40,14 @@ function createWindow () {
 }
 
 app.on('ready', async () => {
-  if (isDevelopment && !process.env.IS_TEST) {}
+  if (isDevelopment && !process.env.IS_TEST) {
+    // 设置托盘
+    tray = new Tray(`static/icon.png`)
+  } else {
+    tray = new Tray(`${__dirname}/static/icon.png`)
+  }
   // 创建渲染窗口
-  createWindow()
-  // 设置托盘
-  tray = new Tray('static/icon.png')
+  createWindow()  
   // 设置托盘菜单
   const trayContextMenu = Menu.buildFromTemplate([
     {
