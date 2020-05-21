@@ -1,5 +1,6 @@
 const getters = {
   sidebar: state => state.user.sidebar,
+  device: state => state.user.device,
   routes: state => state.user.routes,
   userInfo: state => state.user.userInfo
 }
