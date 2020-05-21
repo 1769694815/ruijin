@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain, Tray, Menu } from 'electron'
 // import '../renderer/store'
 
 /**
@@ -12,6 +12,8 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 let mainWindow
+let tray
+const isDevelopment = process.env.NODE_ENV === 'development'
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
@@ -37,7 +39,36 @@ function createWindow () {
   })
 }
 
-app.on('ready', createWindow)
+app.on('ready', async () => {
+  if (isDevelopment && !process.env.IS_TEST) {}
+  // 创建渲染窗口
+  createWindow()
+  // 设置托盘
+  tray = new Tray('static/icon.png')
+  // 设置托盘菜单
+  const trayContextMenu = Menu.buildFromTemplate([
+    {
+      label: '打开',
+      click: () => {
+        app.show()
+      }
+    },
+    {
+      label: '退出',
+      click: () => {
+        app.quit()
+      }
+    }
+  ])
+
+  tray.setToolTip('myApp')
+  tray.on('click', () => {
+    mainWindow.show()
+  })
+  tray.on('right-click', () => {
+    tray.popUpContextMenu(trayContextMenu)
+  })
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

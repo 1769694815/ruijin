@@ -1,7 +1,7 @@
 
 <template>
   <div class="dashboard-container">
-    <p>首页</p>
+    <p @click="sendNotification">首页</p>
   </div>
 </template>
 
@@ -38,6 +38,14 @@ export default {
         data.map(item => this.$db.delete('user', item.primaryKey))
         this.getList()
       })
+    },
+    sendNotification () {
+      const myNotification = new Notification('标题', {
+        body: '通知正文内容'
+      })
+      myNotification.onclick = () => {
+        console.log('通知被点击')
+      }
     }
   }
 }
