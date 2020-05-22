@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 /* Layout */
-import Layout from '../layout'
+import Layout from '@/layout'
 
 Vue.use(Router)
 
 export const constantRoutes = [
   {
     path: '/',
-    name: 'login',
+    name: 'Login',
     hide: true,
     component: require('@/views/login').default
   },
@@ -24,9 +24,15 @@ export const constantRoutes = [
     }]
   },
   {
-    path: '*',
-    redirect: '/',
-    hide: true
+    path: '/patientManage',
+    component: Layout,
+    redirect: '/index',
+    children: [{
+      path: 'index',
+      name: 'PatientManage',
+      component: require('@/views/patientManage').default,
+      meta: { title: 'patientManage', icon: 'yhgl' }
+    }]
   }
 ]
 

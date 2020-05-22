@@ -87,11 +87,14 @@ export default {
     },
     resolvePath (routePath) {
       if (isExternal(routePath)) {
+        console.log('routePath', routePath)
         return routePath
       }
       if (isExternal(this.basePath)) {
+        console.log('routePath', this.basePath)
         return this.basePath
       }
+      console.log('resolvePath', path.resolve(this.basePath, routePath))
       return path.resolve(this.basePath, routePath)
     }
   }

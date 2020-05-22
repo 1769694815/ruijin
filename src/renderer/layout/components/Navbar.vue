@@ -4,32 +4,9 @@
 
     <breadcrumb class="breadcrumb-container" />
 
-    <!-- <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
-        <div class="avatar-wrapper">
-          <img :src="userInfo.avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
-        </div>
-        <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
-            <el-dropdown-item>
-              首页
-            </el-dropdown-item>
-          </router-link>
-          <router-link to="/info/index">
-            <el-dropdown-item>
-              个人信息
-            </el-dropdown-item>
-          </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
-          <el-dropdown-item divided>
-            <span style="display:block;" @click="logout">退出系统</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div> -->
+    <div class="right-menu">
+      <operation />
+    </div>
   </div>
 </template>
 
@@ -37,11 +14,13 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import Operation from '@/components/Operation'
 
 export default {
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    Operation
   },
   computed: {
     ...mapGetters([
@@ -67,7 +46,7 @@ export default {
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
-
+  -webkit-app-region: drag; // 可拖动
   .hamburger-container {
     line-height: 46px;
     height: 100%;
@@ -89,6 +68,8 @@ export default {
   }
 
   .right-menu {
+    width: 100px;
+    position: relative;
     float: right;
     height: 100%;
     line-height: 50px;
