@@ -12,6 +12,10 @@ import db from '../dataStore/index'
 import './icons'
 import './permission'
 
+// 全局注册Xtable组件
+import GL_Component from '@/assets/js/globalComponent'
+Vue.use(GL_Component)
+
 Vue.use(Element)
 
 Vue.prototype.$db = db.indexedDB
