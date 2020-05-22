@@ -8,7 +8,9 @@ export default {
         autoIncrement: true,
         keyPath: 'id'
       })
+      objStore.createIndex('id', 'id', { unique: true })
       objStore.createIndex('name', 'name', { unique: !1 })
+      objStore.createIndex('iconographyNum', 'iconographyNum', { unique: !1 })
       objStore.createIndex('birthday', 'birthday', { unique: !1 })
       objStore.createIndex('age', 'age', { unique: !1 })
       objStore.createIndex('category', 'category', { unique: !1 })
