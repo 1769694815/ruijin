@@ -9,15 +9,15 @@ export const constantRoutes = [
   {
     path: '/',
     name: 'Login',
-    hide: true,
+    hidden: true,
     component: require('@/views/login').default
   },
   {
     path: '/dashboard',
     component: Layout,
-    redirect: '/index',
+    redirect: '/dashboard/index',
     children: [{
-      path: '',
+      path: 'index',
       name: 'Dashboard',
       component: require('@/views/dashboard').default,
       meta: { title: '首页', icon: 'dashboard' }
@@ -26,13 +26,17 @@ export const constantRoutes = [
   {
     path: '/patientManage',
     component: Layout,
-    redirect: '/index',
     children: [{
       path: 'index',
       name: 'PatientManage',
       component: require('@/views/patientManage').default,
       meta: { title: 'patientManage', icon: 'yhgl' }
     }]
+  },
+  {
+    path: '*',
+    redirect: '/login',
+    hidden: true
   }
 ]
 

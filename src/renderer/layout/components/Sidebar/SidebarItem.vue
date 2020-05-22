@@ -3,7 +3,6 @@
     <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
-          <!-- <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title" /> -->
           <svg-icon :iconClass="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)"/>
           <span slot="title">{{ onlyOneChild.meta.title }}</span>
         </el-menu-item>
@@ -87,15 +86,13 @@ export default {
     },
     resolvePath (routePath) {
       if (isExternal(routePath)) {
-        console.log('routePath', routePath)
         return routePath
       }
       if (isExternal(this.basePath)) {
-        console.log('routePath', this.basePath)
         return this.basePath
       }
-      console.log('resolvePath', path.resolve(this.basePath, routePath))
-      return path.resolve(this.basePath, routePath)
+      // path.resolve(this.basePath, routePath) // 路径问题
+      return `${this.basePath}/${routePath}`
     }
   }
 }
