@@ -30,7 +30,17 @@ export const constantRoutes = [
       path: 'index',
       name: 'PatientManage',
       component: require('@/views/patientManage').default,
-      meta: { title: 'patientManage', icon: 'yhgl' }
+      meta: { title: '患者管理', icon: 'yhgl' }
+    }]
+  },
+  {
+    path: '/followUpManage',
+    component: Layout,
+    children: [{
+      path: 'index',
+      name: 'PollowUpManage',
+      component: require('@/views/followUpManage').default,
+      meta: { title: '随访管理', icon: 'ksgl' }
     }]
   },
   {

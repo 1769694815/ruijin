@@ -11,7 +11,25 @@
           v-model="searhForm.username"
           type="text"
           size="small"
-          placeholder="" />
+          placeholder="请输入姓名" />
+      </el-form-item>
+      <el-form-item
+        label="手机号:"
+        label-width="80px">
+        <el-input
+          v-model="searhForm.phone"
+          type="text"
+          size="small"
+          placeholder="请输入手机号" />
+      </el-form-item>
+      <el-form-item
+        label="病理:"
+        label-width="80px">
+        <el-input
+          v-model="searhForm.category"
+          type="text"
+          size="small"
+          placeholder="请输入病理" />
       </el-form-item>
       <el-form-item>
         <el-button
@@ -58,13 +76,13 @@
             @click="handleUpdate(scope.row)"
           >编辑
           </el-button>
-          <el-button
+          <!-- <el-button
             type="text"
             size="mini"
             icon="el-icon-delete"
             @click="handleDelete(scope.row, scope.index)"
           >删除
-          </el-button>
+          </el-button> -->
         </template>
     </Xtable>
     <popup ref="popup" :form="form" v-if="dialogVisible" :dialogVisible="dialogVisible" :operationStatus="operationStatus" @create="create" @update="update" @closeDialog="closeDialog" />
@@ -143,10 +161,13 @@ export default {
               type: 'success'
             })
             this.getList()
+            // 判断设定下次随访时间  加入随访计划 DOTO
           })
         }
       })
     },
+    // 添加带随访计划中 DOTO
+
     update (form) {
       this.$children[2].$refs.dataForm.validate(valid => {
         if (valid) {

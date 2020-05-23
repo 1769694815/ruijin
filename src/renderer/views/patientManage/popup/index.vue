@@ -26,7 +26,7 @@
         </el-col>
         <el-col :xs="12" :lg="12">
           <el-form-item
-            prop="username"
+            prop="iconographyNum"
             label="影像号:"
             :label-width="formLabelWidth">
               <el-input
@@ -39,21 +39,41 @@
         </el-col>
         <el-col :xs="12" :lg="12">
           <el-form-item
-            prop="birthday"
-            label="出生日期:"
+            prop="idCard"
+            label="身份证号:"
             :label-width="formLabelWidth">
-              <el-date-picker
-                v-model="formData.birthday"
+              <el-input
+                v-model="formData.idCard"
                 :disabled="operationStatus == 1"
-                type="date"
-                placeholder="选择日期或输入(2020-05-20)"
-                format="yyyy-MM-dd"
-                value-format="yyyy-MM-dd"
-                style="width: 100%;">
-              </el-date-picker>
+                autocomplete="off"
+                placeholder="请输入身份证号"
+              />
           </el-form-item>
         </el-col>
         <el-col :xs="12" :lg="12">
+          <el-form-item
+            prop="phone"
+            label="手机号码:"
+            :label-width="formLabelWidth">
+              <el-input
+                v-model="formData.phone"
+                :disabled="operationStatus == 1"
+                autocomplete="off"
+                placeholder="请输入手机号码"
+              />
+          </el-form-item>
+        </el-col>
+        <el-col v-if="operationStatus == 1" :xs="12" :lg="12">
+          <el-form-item
+            prop="birthday"
+            label="出生日期:"
+            :label-width="formLabelWidth">
+              <el-input
+                v-model="formData.birthday"
+                disabled />
+          </el-form-item>
+        </el-col>
+        <el-col v-if="operationStatus == 1" :xs="12" :lg="12">
           <el-form-item
             prop="age"
             label="年龄:"
@@ -61,7 +81,6 @@
               <el-input
                 v-model="formData.age"
                 autocomplete="off"
-                placeholder="请输入年龄"
                 disabled
               />
           </el-form-item>
@@ -77,6 +96,61 @@
                 autocomplete="off"
                 placeholder="请输入病理"
               />
+          </el-form-item>
+        </el-col>
+        <el-col v-if="operationStatus == 1" :xs="12" :lg="12">
+          <el-form-item
+            prop="lastRecordsTime"
+            label="最近回访时间:"
+            :label-width="formLabelWidth">
+              <el-input
+                disabled
+                v-model="formData.lastRecordsTime"
+                placeholder="无"
+              />
+          </el-form-item>
+        </el-col>
+        <el-col :xs="12" :lg="12">
+          <el-form-item
+            prop="nextRecordsTime"
+            label="下次回访时间:"
+            :label-width="formLabelWidth">
+              <el-date-picker
+                v-model="formData.nextRecordsTime"
+                align="right"
+                type="datetime"
+                format="yyyy-MM-dd HH:mm:ss"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                style="width: 100%"
+                placeholder="请选择下次回访时间"
+                :disabled="operationStatus == 1"
+                :picker-options="pickerOptions" />
+          </el-form-item>
+        </el-col>
+        <el-col v-if="operationStatus != 0" :xs="24" :lg="24">
+          <el-form-item
+            prop="followUpRecords"
+            label="回访记录："
+            :label-width="formLabelWidth">
+            <el-collapse accordion>
+              <el-collapse-item>
+                <template slot="title">
+                  <p style="font-size: 16px">共{{ recordCount }}条</p>
+                </template>
+                <div class="block">
+                  <el-timeline
+                    v-for="(item, index) in formData.followUpRecords"
+                    :key="index">
+                    <el-timeline-item :timestamp="item.time" placement="top">
+                      <el-card>
+                        <h4>第{{ index + 1 }}次回访记录</h4>
+                        <p>{{ item.content }}</p>
+                      </el-card>
+                    </el-timeline-item>
+                  </el-timeline>
+                </div>
+              </el-collapse-item>
+            </el-collapse>
           </el-form-item>
         </el-col>
         <el-col :xs="24" :lg="24">
@@ -123,10 +197,84 @@
 <script>
 export default {
   data () {
+    var checkTime = (rule, value, callback) => {
+      console.log('value', value)
+      if (value) {
+        let inputTime = new Date(value).getTime()
+        let newTime = new Date().getTime()
+        console.log('inputTime', inputTime, newTime)
+        if (inputTime < newTime) {
+          callback(new Error(rule.message))
+        }
+      }
+    }
     return {
       formData: JSON.parse(JSON.stringify(this.form)),
-      formRules: {},
-      formLabelWidth: '90px',
+      formRules: {
+        username: [{
+          required: true,
+          message: '请输入姓名',
+          trigger: 'blur'
+        }],
+        iconographyNum: [{
+          required: true,
+          message: '请输入影像号',
+          trigger: 'blur'
+        }],
+        idCard: [{
+          required: true,
+          message: '请输入18位身份证号',
+          trigger: 'blur',
+          min: 18,
+          max: 18
+        }],
+        phone: [{
+          required: true,
+          message: '请输11位手机号码',
+          trigger: 'blur',
+          min: 11,
+          max: 11
+        }],
+        category: [{
+          required: true,
+          message: '请输入病理',
+          trigger: 'blur'
+        }],
+        lastRecordsTime: [{
+          validator: checkTime,
+          required: false,
+          message: '请选择正确的随访时间',
+          trigger: 'change'
+        }]
+      },
+      formLabelWidth: '120px',
+      pickerOptions: {
+        disableDate (time) {
+          return time.getTime() > Date.now()
+        },
+        shortcuts: [{
+          text: '一周后',
+          onClick(picker) {
+            const date = new Date();
+            date.setTime(date.getTime() + 3600 * 1000 * 24 * 7);
+            picker.$emit('pick', date);
+          }
+        }, {
+          text: '半个月后',
+          onClick(picker) {
+            const date = new Date();
+            date.setTime(date.getTime() + 3600 * 1000 * 24 * 14);
+            picker.$emit('pick', date);
+          }
+        }, {
+          text: '一个月后',
+          onClick(picker) {
+            const date = new Date();
+            date.setTime(date.getTime() + 3600 * 1000 * 24 * 4);
+            picker.$emit('pick', date);
+          }
+        }]
+      }
     }
   },
   props: {
@@ -157,14 +305,24 @@ export default {
     } 
   },
   watch: {
-    'formData.birthday': function (val) {
-      this.getAge(val)
+    'formData.idCard': function (val) {
+      this.getBirthdayAndAge(val)
+    }
+  },
+  computed: {
+    recordCount () {
+      return this.formData.followUpRecords && this.formData.followUpRecords.length || 0
     }
   },
   methods: {
-    getAge (val) {
+    getBirthdayAndAge (val) {
+      let str = val.slice(6, 14)
+      let year = str.slice(0, 4)
+      let month = str.slice(4, 6)
+      let day = str.slice(-2)
       let newTime = new Date().getTime()
-      let birthdayTime = new Date(val).getTime()
+      let birthdayTime = new Date(`${year}-${month}-${day}`).getTime()
+      this.formData.birthday = `${year}年${month}月${day}日`
       this.formData.age = Math.ceil((newTime - birthdayTime) / (360 * 24 * 60 * 60 * 1000))
     },
     create () {
