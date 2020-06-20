@@ -111,25 +111,29 @@ export default {
       searhForm: {},
       operationStatus: 0,
       dialogVisible: false,
-      form: {}
+      form: {},
+      allData: []
     }
   },
   created () {
-    this.getListCount()
-    this.getList()
+    this.getAllList()
   },
   methods: {
-    getListCount () {
-      this.$db.count('user').then(res => {
-        this.page.total = res
+    getAllList () {
+      this.$db.getAll('user').then(res => {
+        this.allData = res.reverse()
+        console.log('allData', this.allData)
+        this.page.total = this.allData.length || 0
+        this.getList()
       })
     },
     getList () {
-      let lowerBound = (this.page.current - 1) * this.page.size + 1
-      let upperBound = this.page.current * this.page.size
-      this.$db.getAllMatching('user', { index: 'id', query: IDBKeyRange.bound(lowerBound, upperBound) }).then(res => {
-        this.tableData = res
-      })
+      let lowerBound = (this.page.current - 1) * this.page.size
+      let upperBound = this.page.current * this.page.size + 1
+      this.tableData = this.allData.slice(lowerBound, upperBound)
+      // this.$db.getAllMatching('user', { index: 'id', query: IDBKeyRange.bound(lowerBound, upperBound) }).then(res => {
+      //   this.tableData = res
+      // })
     },
     handleFilter () {},
     handleEmpty () {},

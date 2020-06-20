@@ -20,6 +20,12 @@ export default {
       objStore.createIndex('lastRecordsTime', 'lastRecordsTime', { unique: !1 })
       objStore.createIndex('nextRecordsTime', 'nextRecordsTime', { unique: !1 })
       objStore.createIndex('note', 'note', { unique: !1 })
+      const objStore2 = db.createObjectStore('follow_up_manage_user', {
+        autoIncrement: true,
+        keyPath: 'id'
+      })
+      objStore2.createIndex('id', 'id', { unique: true })
+      objStore2.createIndex('name', 'name', { unique: !1 })
     }
   }),
   openDB: function () {
